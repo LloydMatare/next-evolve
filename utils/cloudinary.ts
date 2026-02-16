@@ -8,7 +8,12 @@ export async function uploadToCloudinary(
   
   // Handle both Buffer (Node.js) and File (browser) inputs
   if (file instanceof Buffer) {
-    formData.append('file', new Blob([file], { type: type === 'image' ? 'image/png' : 'application/pdf' }), fileName);
+    // Convert Buffer to Uint8Array which is compatible with Blob
+    const uint8Array = new Uint8Array(file);
+    const blob = new Blob([uint8Array], { 
+      type: type === 'image' ? 'image/png' : 'application/pdf' 
+    });
+    formData.append('file', blob, fileName);
   } else {
     formData.append('file', file);
   }
