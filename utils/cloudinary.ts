@@ -15,7 +15,7 @@ export async function uploadToCloudinary(
     });
     formData.append('file', blob, fileName);
   } else {
-    formData.append('file', file);
+    formData.append('file', file as File);
   }
   
   formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!);
